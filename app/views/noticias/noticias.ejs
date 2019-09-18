@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+	<html lang="pt-br">
+		<head>
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+			<meta charset="utf-8"/>
+			<title>Notícias</title>
+		</head>
+	<body>
+
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" href="/noticias"> Portal de Notícias</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+					  <span class="navbar-toggler-icon"></span>
+					</button>
+				  
+					<div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+					  <ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+						  <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="/formulario_inclusao_noticia">Inserir Notícia</a>
+						</li>
+											
+					  </ul>
+					  
+					</div>
+				  </nav>
+
+			<table>
+				<tr>
+					<td>ID</td>
+					<td>Titulo</td>
+				</tr>				
+					<% for(var i=0; i < noticias.length; i++) { %>
+					<tr>
+						<td><%= noticias[i].id_noticia %></td>
+						<td><%= noticias[i].titulo %></td>
+					</tr>
+					<% } %>	
+			</table>
+
+			<a href="/formulario_inclusao_noticia"><button type="button" class="btn btn-danger">Cadastrar noticia</button></a> 
+	</body>
+</html>
