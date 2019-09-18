@@ -2,7 +2,7 @@ const { check, validationResult } = require('express-validator');
 
 module.exports = function(app){
     app.get('/formulario_inclusao_noticia', function(req, res){
-          res.render("admin/form_add_noticia", {validacao : {}});
+          res.render("admin/form_add_noticia", {validacao : {}, noticia : {}});
         });
     app.post('/noticias/salvar',[ check('titulo').isLength({min : 1}).withMessage('O Título é um campo obrigatorio'),
                                   check('resumo').isLength({min : 1}).withMessage('O Resumo é um campo obrigatório'),
@@ -24,7 +24,7 @@ module.exports = function(app){
               // return res.status(422).json({ validacao : error});
  
                //retorna os erros em formato html 
-               return res.render("admin/form_add_noticia", {validacao : error.array()});
+               return res.render("admin/form_add_noticia", {validacao : error.array(), noticia : noticia});
                
              }
  
