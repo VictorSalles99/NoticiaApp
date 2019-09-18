@@ -31,13 +31,14 @@
 				<tr>
 					<td>ID</td>
 					<td>Titulo</td>
-				</tr>				
+				</tr>					
 					<% for(var i=0; i < noticias.length; i++) { %>
 					<tr>
 						<td><%= noticias[i].id_noticia %></td>
 						<td><%= noticias[i].titulo %></td>
 					</tr>
 					<% } %>	
+
 			</table>
 
 			<a href="/formulario_inclusao_noticia"><button type="button" class="btn btn-danger">Cadastrar noticia</button></a> 

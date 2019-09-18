@@ -2,31 +2,43 @@ const { check, validationResult } = require('express-validator');
 
 module.exports = function(app){
     app.get('/formulario_inclusao_noticia', function(req, res){
-        res.render("admin/form_add_noticia")
+          res.render("admin/form_add_noticia", {validacao : {}});
         });
-    app.post('/noticias/salvar',[check('titulo').isLength({min : 1}),
-                                 check('resumo').isLength({min : 1}),
-                                 check('resumo').isLength({max : 100}),
-                                 check('autor').isLength({min : 1}),
-                                 check('autor').isLength({max : 30}),
-                                 check("noticia").isLength({min :1})
-                                 
-
-
-                                ], function(req, res){
+    app.post('/noticias/salvar',[ check('titulo').isLength({min : 1}).withMessage('O Título é um campo obrigatorio'),
+                                  check('resumo').isLength({min : 1}).withMessage('O Resumo é um campo obrigatório'),
+                                  check('resumo').isLength({max : 100}).withMessage('O Resumo deve ter no méximo 100 caracteres'),
+                                  check('autor').isAlpha().withMessage('O campo Autor não aceita números'),
+                                  check('autor').isLength({min : 1}).withMessage('Autor é um campo obrigatório'),
+                                  check('autor').isLength({max : 30}).withMessage('O autor deve ter no máximo 30 caracteres'),
+                                  check('noticia').isLength({min :1}).withMessage('A notícia é um campo obrigatório'),
+                                  check('data_noticia').custom(isValidDate).withMessage('A data é um campo Obrigatório')],
+                                    function(req, res){
             let noticia = req.body;
             let con = app.config.dbConnetion(); 
             let NoticiasDAO = new app.app.models.NoticiasDAO(con);
-            const errors = validationResult(req);
-            
-            
-            if (!errors.isEmpty()) {
-              return res.status(422).send('Verifque os campos');
-            }
-
-            NoticiasDAO.salvarNoticia(noticia,function (err, result) {
-            res.redirect("/noticias");          
-          });
+            const error = validationResult(req); 
+              
+                     
+            if (!error.isEmpty()) {
+              //retorna os erros na tela em formato json
+              // return res.status(422).json({ validacao : error});
+ 
+               //retorna os erros em formato html 
+               return res.render("admin/form_add_noticia", {validacao : error.array()});
+               
+             }
+ 
+             NoticiasDAO.salvarNoticia(noticia,function (err, result) {
+             res.redirect("/noticias");          
+           });
 
         });
+
+        function isValidDate(value) {
+          if (!value.match(/^\d{4}-\d{2}-\d{2}$/)) return false;
+        
+          const date = new Date(value);
+          if (!date.getTime()) return false;
+          return date.toISOString().slice(0, 10) === value;
+        }
 };

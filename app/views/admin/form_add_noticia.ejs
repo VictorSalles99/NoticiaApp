@@ -28,6 +28,18 @@
 				  </nav>
 	
 		<br>
+
+		<% if(validacao) { %>
+				<ul>
+						<% for(let i = 0; i < validacao.length; i++) 
+							{ %>
+							<li>
+								<%= validacao[i].msg %>
+							</li>
+						<% } %>
+				</ul>
+		<% } %>
+				  
 		<form action="/noticias/salvar" method="POST">
 			<label>Título</label>
 			<input type="text" id="titulo" name="titulo" placeholder="titulo da noticia">
