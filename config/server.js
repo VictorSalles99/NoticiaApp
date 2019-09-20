@@ -17,7 +17,7 @@ app.use(express.json());
    // password: req.body.password
   //}).then(user => res.json(user));
 //});
-
+app.use(express.static('public'));
 
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 	<html lang="pt-br">
 		<head>
+			<link rel="stylesheet" type="text/css" href="/public/style.css">
 			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 			<meta charset="utf-8"/>
 			<title>Formulário de cadastro de Notícia</title>
@@ -28,19 +29,21 @@
 				  </nav>
 	
 		<br>
-
-		<% if(validacao) { %>
-				<ul>
-						<% for(let i = 0; i < validacao.length; i++) 
-							{ %>
-							<li>
-								<%= validacao[i].msg %>
-							</li>
-						<% } %>
-				</ul>
-		<% } %>
-				  
+		<div class="color">
+				<% if(validacao) { %>
+					<ul>
+							<% for(let i = 0; i < validacao.length; i++) 
+								{ %>
+								<li>
+									<%= validacao[i].msg %>
+								</li>
+							<% } %>
+					</ul>
+			<% } %>
+		</div>
+		 
 		<form action="/noticias/salvar" method="POST">
+			
 			<label>Título</label>
 			<input type="text" id="titulo" name="titulo" value="<%=noticia.titulo%>" placeholder="titulo da noticia">
 			<br>
