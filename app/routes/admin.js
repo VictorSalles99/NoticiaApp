@@ -4,10 +4,10 @@ module.exports = function(app){
     app.get('/formulario_inclusao_noticia', function(req, res){
           res.render("admin/form_add_noticia", {validacao : {}, noticia : {}});
         });
-    app.post('/noticias/salvar',[ check('titulo').isLength({min : 1}).withMessage('O Título é um campo obrigatorio'),
+        app.post('/noticias/salvar',[ check('titulo').isLength({min : 1}).withMessage('O Título é um campo obrigatorio'),
                                   check('resumo').isLength({min : 1}).withMessage('O Resumo é um campo obrigatório'),
                                   check('resumo').isLength({max : 100}).withMessage('O Resumo deve ter no méximo 100 caracteres'),
-                                  check('autor').isAlpha().withMessage('O campo Autor não aceita números'),
+                                  check('autor').not().contains(1,2,3,4,5,6,7,8,9,0).withMessage('O campo autor não aceita números'),
                                   check('autor').isLength({min : 1}).withMessage('Autor é um campo obrigatório'),
                                   check('autor').isLength({max : 30}).withMessage('O autor deve ter no máximo 30 caracteres'),
                                   check('noticia').isLength({min :1}).withMessage('A notícia é um campo obrigatório'),
